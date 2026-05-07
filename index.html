@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MUTMA KULINER - Lezat, Praktis, Berkualitas</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+
+    <style>
+      :root {
+        --pink-primary: #ff4fa3;
+        --pink-dark: #7d0048;
+        --pink-light: #ffe3f1;
+        --gradient-nav: linear-gradient(90deg, #2a0017, #7d0048, #ff4fa3);
+      }
+
+      body {
+        background: linear-gradient(180deg, #fff7fb, #ffffff);
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        min-height: 100vh;
+      }
+
+      .navbar {
+        background: var(--gradient-nav);
+        padding: 15px 0;
+        box-shadow: 0 8px 30px rgba(255, 79, 163, 0.25);
+        z-index: 1000;
+      }
+
+      .logo-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #ffc7e2, #ff4fa3, #b30059);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 28px;
+        color: white;
+        box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+        border: 3px solid rgba(255, 255, 255, 0.35);
+      }
+
+      .logo-text h2 {
+        margin: 0;
+        font-weight: 800;
+        letter-spacing: 2px;
+        color: white;
+      }
+      .logo-text span {
+        display: block;
+        color: #ffe3f1;
+        letter-spacing: 5px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .section-title {
+        font-weight: 800;
+        color: var(--pink-dark);
+        position: relative;
+        padding-bottom: 10px;
+      }
+      .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: var(--pink-primary);
+      }
+
+      .card {
+        border: none;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        height: 100%;
+        transition: 0.3s;
+      }
+      .card:hover {
+        transform: translateY(-10px);
+      }
+
+      .card-img-top {
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .btn-add {
+        width: 100%;
+        border: none;
+        border-radius: 12px;
+        padding: 12px;
+        font-weight: 600;
+        background: linear-gradient(90deg, #ff4fa3, #ff7abf);
+        color: white;
+      }
+
+      .badge-cart {
+        background: var(--pink-primary) !important;
+      }
+
+      .btn-checkout {
+        background: linear-gradient(90deg, #00b894, #00d2a8);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 14px;
+        width: 100%;
+        font-weight: bold;
+      }
+
+      @media (max-width: 768px) {
+        .search-box {
+          width: 100% !important;
+          margin-top: 15px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+      <div class="container">
+        <a href="#" class="d-flex align-items-center text-decoration-none gap-3">
+          <div class="logo-icon"><i class="bi bi-fire"></i></div>
+          <div class="logo-text">
+            <h2>MUTMA</h2>
+            <span>KULINER</span>
+          </div>
+        </a>
+
+        <div class="mx-auto search-box" style="width: 40%">
+          <div class="input-group">
+            <input type="text" id="search-input" class="form-control rounded-start-pill border-0" placeholder="Cari menu..." onkeyup="filterProducts()" />
+            <button class="btn btn-light rounded-end-pill px-3 text-pink"><i class="bi bi-search"></i></button>
+          </div>
+        </div>
+
+        <button class="btn btn-white bg-white position-relative rounded-3" data-bs-toggle="modal" data-bs-target="#cartModal">
+          <i class="bi bi-cart3 fs-4 text-pink"></i>
+          <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-cart">0</span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="container py-5">
+      <h2 class="section-title mb-5">Daftar Produk</h2>
+
+      <div class="row g-4" id="product-container">
+        <div class="col-6 col-md-4 product-item">
+          <div class="card p-2">
+            <img src="img/WhatsApp Image 2026-04-29 at 17.47.54.jpeg" class="card-img-top rounded-4" />
+            <div class="card-body px-1">
+              <small class="text-muted">Ayam</small>
+              <h6 class="product-name fw-bold mb-1 text-truncate">Ayam Saus Madu Wijen</h6>
+              <p class="text-danger fw-bold">Rp 30.000</p>
+              <button class="btn-add" onclick="addToCart('Ayam Saus Madu Wijen', 30000)">Tambah</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-4 product-item">
+          <div class="card p-2">
+            <img src="img/ayam.webp" class="card-img-top rounded-4" />
+            <div class="card-body px-1">
+              <small class="text-muted">Ayam</small>
+              <h6 class="product-name fw-bold mb-1 text-truncate">Ayam Bakar Madu</h6>
+              <p class="text-danger fw-bold">Rp 35.000</p>
+              <button class="btn-add" onclick="addToCart('Ayam Bakar Madu', 35000)">Tambah</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-4 product-item">
+          <div class="card p-2">
+            <img src="img/daging sice.jpeg" class="card-img-top rounded-4" />
+            <div class="card-body px-1">
+              <small class="text-muted">Daging Sapi</small>
+              <h6 class="product-name fw-bold mb-1 text-truncate">Daging Slice Teriyaki</h6>
+              <p class="text-danger fw-bold">Rp 50.000</p>
+              <button class="btn-add" onclick="addToCart('Daging Slice Teriyaki', 50000)">Tambah</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-4 product-item">
+          <div class="card p-2">
+            <img src="img/daging bbq.webp" class="card-img-top rounded-4" />
+            <div class="card-body px-1">
+              <small class="text-muted">Daging Sapi</small>
+              <h6 class="product-name fw-bold mb-1 text-truncate">Daging BBQ 1kg</h6>
+              <p class="text-danger fw-bold">Rp 100.000</p>
+              <button class="btn-add" onclick="addToCart('Daging BBQ 1kg', 100000)">Tambah</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-4 product-item">
+          <div class="card p-2">
+            <img src="img/WhatsApp Image 2026-04-29 at 17.47.54.jpeg" class="card-img-top rounded-4" />
+            <div class="card-body px-1">
+              <small class="text-muted">Ayam</small>
+              <h6 class="product-name fw-bold mb-1 text-truncate">Ayam Kecap Wijen</h6>
+              <p class="text-danger fw-bold">Rp 30.000</p>
+              <button class="btn-add" onclick="addToCart('Ayam Kecap Wijen', 30000)">Tambah</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-4 product-item">
+          <div class="card p-2">
+            <img src="img/ayam-panggangjpg-20251216020409.webp" class="card-img-top rounded-4" />
+            <div class="card-body px-1">
+              <small class="text-muted">Ayam</small>
+              <h6 class="product-name fw-bold mb-1 text-truncate">Ayam Panggang Spesial</h6>
+              <p class="text-danger fw-bold">Rp 35.000</p>
+              <button class="btn-add" onclick="addToCart('Ayam Panggang Spesial', 35000)">Tambah</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="cartModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header border-0 shadow-sm">
+            <h5 class="fw-bold mb-0"><i class="bi bi-cart-check-fill me-2"></i>Keranjang</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <ul id="cart-items" class="list-group list-group-flush mb-3"></ul>
+            <div class="p-3 bg-light rounded-4 mb-3 d-flex justify-content-between align-items-center">
+              <span class="fw-bold">Total:</span>
+              <span id="total-price" class="text-danger fw-bold fs-5">Rp 0</span>
+            </div>
+            <input type="text" id="customer-name" class="form-control mb-2" placeholder="Nama Anda" />
+            <textarea id="customer-address" class="form-control mb-3" rows="2" placeholder="Alamat Pengiriman"></textarea>
+            <button class="btn-checkout" onclick="checkoutCart()"><i class="bi bi-whatsapp"></i> Checkout ke WhatsApp</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      let cart = [];
+
+      // 1. Fungsi Pencarian (Filter)
+      function filterProducts() {
+        const query = document.getElementById('search-input').value.toLowerCase();
+        const items = document.querySelectorAll('.product-item');
+
+        items.forEach((item) => {
+          const name = item.querySelector('.product-name').innerText.toLowerCase();
+          item.style.display = name.includes(query) ? 'block' : 'none';
+        });
+      }
+
+      // 2. Fungsi Tambah ke Keranjang (Dari tombol di kartu produk)
+      function addToCart(name, price) {
+        const itemExist = cart.find((i) => i.name === name);
+        if (itemExist) {
+          itemExist.qty++;
+        } else {
+          cart.push({ name, price, qty: 1 });
+        }
+        updateCart();
+      }
+
+      // 3. Fungsi Ubah Jumlah di Dalam Keranjang (Tambah/Kurang)
+      function changeQty(index, delta) {
+        cart[index].qty += delta;
+        if (cart[index].qty < 1) {
+          removeItem(index);
+        } else {
+          updateCart();
+        }
+      }
+
+      // 4. Fungsi Hapus Produk Sepenuhnya
+      function removeItem(index) {
+        cart.splice(index, 1);
+        updateCart();
+      }
+
+      // 5. Update Tampilan Keranjang
+      function updateCart() {
+        const list = document.getElementById('cart-items');
+        let total = 0;
+        let count = 0;
+
+        list.innerHTML = cart
+          .map((item, i) => {
+            const subtotal = item.price * item.qty;
+            total += subtotal;
+            count += item.qty;
+
+            return `
+        <li class="list-group-item px-0 py-3">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <b class="d-block mb-1">${item.name}</b>
+              <small class="text-muted">Rp ${item.price.toLocaleString('id-ID')} / porsi</small>
+            </div>
+            <button class="btn btn-sm btn-outline-danger border-0" onclick="removeItem(${i})">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mt-2">
+            <div class="btn-group btn-group-sm">
+              <button class="btn btn-outline-secondary" onclick="changeQty(${i}, -1)">-</button>
+              <span class="btn btn-light disabled fw-bold" style="min-width: 40px">${item.qty}</span>
+              <button class="btn btn-outline-secondary" onclick="changeQty(${i}, 1)">+</button>
+            </div>
+            <span class="fw-bold text-danger">Rp ${subtotal.toLocaleString('id-ID')}</span>
+          </div>
+        </li>`;
+          })
+          .join('');
+
+        document.getElementById('cart-count').innerText = count;
+        document.getElementById('total-price').innerText = 'Rp ' + total.toLocaleString('id-ID');
+      }
+
+      // 6. Fungsi Checkout WhatsApp
+      function checkoutCart() {
+        const name = document.getElementById('customer-name').value;
+        const addr = document.getElementById('customer-address').value;
+
+        if (cart.length === 0) return alert('Keranjang belanja Anda masih kosong!');
+        if (!name || !addr) return alert('Mohon isi Nama dan Alamat pengiriman!');
+
+        let totalOrder = 0;
+        let msg = `*PESANAN BARU - MUTMA KULINER*%0A`;
+        msg += `--------------------------------%0A`;
+        msg += `*Pelanggan:* ${name}%0A`;
+        msg += `*Alamat:* ${addr}%0A`;
+        msg += `--------------------------------%0A`;
+        msg += `*Detail Pesanan:*%0A`;
+
+        cart.forEach((item) => {
+          let subtotal = item.price * item.qty;
+          msg += `- ${item.name} (x${item.qty}) : Rp ${subtotal.toLocaleString('id-ID')}%0A`;
+          totalOrder += subtotal;
+        });
+
+        msg += `--------------------------------%0A`;
+        msg += `*TOTAL PEMBAYARAN: Rp ${totalOrder.toLocaleString('id-ID')}*%0A`;
+        msg += `--------------------------------%0A`;
+        msg += `Mohon segera diproses ya, Kak! Terimakasih.`;
+
+        const phone = '6287753134458'; // Nomor WhatsApp Anda
+        window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+      }
+    </script>
+  </body>
+</html>
